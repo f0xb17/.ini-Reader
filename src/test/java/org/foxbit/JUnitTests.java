@@ -14,30 +14,41 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public final class JUnitTests {
 
-    final IniFileReader iniFileReader = new IniFileReader("src/main/java/org/foxbit/sample.ini");
-
     @Test
     public void testFilePath() {
-        assertDoesNotThrow(() -> iniFileReader.getFilePath());
+        try {
+            final FetchINI fetchINI = new FetchINI("src/main/java/org/foxbit/sample.ini");
+            assertDoesNotThrow(() -> fetchINI.getFilePath());
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
     @Test
     public void testFetchContents() {
-        assertDoesNotThrow(() -> iniFileReader.fetchContent());
+        try {
+            final FetchINI fetchINI = new FetchINI("src/main/java/org/foxbit/sample.ini");
+            assertDoesNotThrow(() -> fetchINI.fetchContent());
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
     @Test
     public void testContents() {
         try {
-            iniFileReader.fetchContent();
-        } catch (Exception ex) {
-            System.out.println("Error while Test fetch: " + ex.getMessage());
-        }
-        assertEquals("John Doe", iniFileReader.getValue("owner", "name"));
-        assertEquals("Acme Widgets Inc.", iniFileReader.getValue("owner", "organization"));
-        assertEquals("192.0.2.62", iniFileReader.getValue("database", "server"));
+            final FetchINI fetchINI = new FetchINI("src/main/java/org/foxbit/sample.ini");
+            fetchINI.fetchContent();
 
-        assertNotEquals("John Doe", iniFileReader.getValue("database", "server"));
-        assertNotEquals("192.0.2.62", iniFileReader.getValue("owner", "name"));
+            assertEquals("John Doe", fetchINI.getValue("owner", "name"));
+            assertEquals("Acme Widgets Inc.", fetchINI.getValue("owner", "organization"));
+            assertEquals("192.0.2.62", fetchINI.getValue("database", "server"));
+
+            assertNotEquals("John Doe", fetchINI.getValue("database", "server"));
+            assertNotEquals("192.0.2.62", fetchINI.getValue("owner", "name"));
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 }

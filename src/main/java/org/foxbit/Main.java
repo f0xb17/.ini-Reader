@@ -4,14 +4,14 @@ public class Main {
     public static void main(String[] args) {
 
         try {
-            IniFileReader iniFileReader = new IniFileReader("src/main/java/org/foxbit/sample.ini");
+            FetchINI fetchINI = new FetchINI("src/main/java/org/foxbit/sample.ini");
 
-            iniFileReader.fetchContent();
+            fetchINI.fetchContent();
 
-            System.out.println(iniFileReader.getValue("owner", "name"));
-            System.out.println(iniFileReader.getValue("owner", "organization"));
+            System.out.println(fetchINI.getValue("owner", "name"));
+            System.out.println(fetchINI.getValue("owner", "organization"));
 
-            System.out.println(iniFileReader.getValue("database", "server"));
+            System.out.println(fetchINI.getValue("database", "server"));
 
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
