@@ -8,23 +8,35 @@
 
 package org.foxbit;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
-public class IniFileReader {
+public class FetchINI {
 
     private final String filePath;
     private Map<String, Map<String, String>> contents = new HashMap<>();
 
     /**
-     * Constructor of the class which takes one argument.
-     * @param filePath path/to/file
+     * Creates new {@code FetchINI} that takes a file path to evaluate a file that is named by the path.
+     * @param filePath the path to a {@code .ini} file
+     * @throws FileNotFoundException when the file can't be found.
      */
-    public IniFileReader(String filePath) {
-        if (filePath.isBlank() || filePath == null) throw new NullPointerException();
+    public FetchINI(String filePath) throws FileNotFoundException {
+        if (filePath.isBlank() || filePath == null)
+            throw new FileNotFoundException();
+        this.filePath = filePath;
+    }
+
+    /**
+     * Creates new {@code FetchINI} that uses the config.ini in the package.
+     * @throws FileNotFoundException when the file can't be found.
+     */
+    public FetchINI() throws FileNotFoundException {
+        String filePath = "src/main/java/org/foxbit/config/config.ini";
+        if (filePath.isBlank() || filePath == null)
+            throw new FileNotFoundException();
+
         this.filePath = filePath;
     }
 
@@ -33,7 +45,8 @@ public class IniFileReader {
      * @throws NullPointerException when filePath is blank or null.
      */
     public String getFilePath() throws NullPointerException {
-        if (filePath.isBlank() || filePath == null) throw new NullPointerException();
+        if (filePath.isBlank() || filePath == null)
+            throw new NullPointerException();
         return this.filePath;
     }
 
@@ -59,7 +72,7 @@ public class IniFileReader {
            }
            bufferedReader.close();
         } catch (Exception ex) {
-            System.out.println("Error while fetching Contents: " + ex.getMessage());
+            throw new IOException("Error while Reading: " + ex.getMessage());
         }
     }
 
