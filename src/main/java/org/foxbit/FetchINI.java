@@ -1,5 +1,5 @@
 //
-//  IniFileReader.java
+//  FetchINI.java
 //  Class to read Ini Files without additional Frameworks
 //
 //  Created by f0xb17 on 12/21/2022.
