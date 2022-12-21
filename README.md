@@ -12,7 +12,7 @@ I used ChatGPT for the base idea and improved the result.
 
  # Technical details 
  * Fully written in Java
- * Included JUniTests
+ * Included JUnitTests
 
 # Known problems
 * None for now.
